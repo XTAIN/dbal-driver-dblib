@@ -19,6 +19,7 @@
 
 namespace Doctrine\DBAL\Driver\PDOMSSQL;
 
+use Doctrine\DBAL\Driver\AbstractDbLibDriver;
 use Doctrine\DBAL\Driver\AbstractSQLServerDriver;
 
 /**
@@ -43,7 +44,7 @@ class Driver extends AbstractSQLServerDriver
     public function connect(array $params, $username = null, $password = null, array $driverOptions = array())
     {
         $connection = new Connection(
-            $this->_constructPdoDsn($params),
+            AbstractDbLibDriver::constructPdoDsn($params, $driverOptions),
             $username,
             $password,
             $driverOptions
@@ -52,32 +53,6 @@ class Driver extends AbstractSQLServerDriver
         $this->initializeConnection($connection);
 
         return $connection;
-    }
-
-    /**
-     * Constructs the MSSQL PDO DSN.
-     *
-     * @param array $params
-     *
-     * @return string The DSN.
-     */
-    private function _constructPdoDsn(array $params)
-    {
-        $dsn = 'dblib:host=';
-
-        if (isset($params['host'])) {
-            $dsn .= $params['host'];
-        }
-
-        if (isset($params['port']) && !empty($params['port'])) {
-            $dsn .= ':' . $params['port'];
-        }
-
-        if (isset($params['dbname'])) {
-            $dsn .= ';dbname=' .  $params['dbname'];
-        }
-
-        return $dsn;
     }
 
     /**

@@ -20,6 +20,7 @@
 namespace Doctrine\DBAL\Driver\PDOMSSQL;
 
 use Doctrine\DBAL\Driver\PDOConnection;
+use Doctrine\DBAL\Driver\AbstractDbLibDriver;
 
 /**
  * Sqlsrv Connection implementation.
@@ -56,6 +57,14 @@ class Connection extends PDOConnection implements \Doctrine\DBAL\Driver\Connecti
         $result = $this->prepare('SELECT @@version');
         $result->execute();
         return $result->fetchColumn(0);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function query()
+    {
+        return AbstractDbLibDriver::emulateQuery($this, func_get_args()),
     }
 
     /**

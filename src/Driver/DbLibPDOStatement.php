@@ -15,62 +15,17 @@ class DbLibPDOStatement extends PDOStatement
     protected $resultCache;
 
     /**
-     * @param mixed $value
-     * @param int   $type
-     *
-     * @return mixed
-     */
-    protected function guessType($value)
-    {
-        if (is_scalar($value)) {
-            if (is_int($value) || is_float($value)) {
-                return \PDO::PARAM_INT;
-            } else if (is_bool($value)) {
-                return \PDO::PARAM_BOOL;
-            }
-        }
-
-        return \PDO::PARAM_STR;
-    }
-
-    /**
-     * @param mixed $value
-     * @param int   $type
-     *
-     * @return mixed
-     */
-    protected function fixType($value, $type = \PDO::PARAM_STR)
-    {
-        switch ($type) {
-            case \PDO::PARAM_NULL:
-                return null;
-            case \PDO::PARAM_INT:
-                $float = floatval($value);
-                $int = intval($float);
-                if ($float && $int != $float) {
-                    return $float;
-                }
-
-                return $int;
-            case \PDO::PARAM_BOOL:
-                return $value ? 1 : 0;
-        }
-
-        return $value;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function bindValue($param, $value, $type = null)
     {
         if ($type === null) {
-            $type = $this->guessType($value);
+            $type = EmulatedPreparedStatement::guessType($value);
         }
 
         return parent::bindValue(
             $param,
-            $this->fixType($value, $type),
+            EmulatedPreparedStatement::fixType($value, $type),
             $type
         );
     }
@@ -81,10 +36,10 @@ class DbLibPDOStatement extends PDOStatement
     public function bindParam($column, &$variable, $type = null, $length = null, $driverOptions = null)
     {
         if ($type === null) {
-            $type = $this->guessType($variable);
+            $type = EmulatedPreparedStatement::guessType($variable);
         }
 
-        $variable = $this->fixType($variable, $type);
+        $variable = EmulatedPreparedStatement::fixType($variable, $type);
         return parent::bindParam($column, $variable, $type, $length, $driverOptions);
     }
 

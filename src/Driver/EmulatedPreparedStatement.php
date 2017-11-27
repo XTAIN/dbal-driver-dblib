@@ -33,7 +33,7 @@ use Traversable;
  * @since 2.6
  * @author Maximilian Ruta <mr@xtain.net>
  */
-class EmulatedPreparedStatement implements IteratorAggregate, Statement
+abstract class EmulatedPreparedStatement implements IteratorAggregate, Statement
 {
     /**
      * The ASE Connection object.

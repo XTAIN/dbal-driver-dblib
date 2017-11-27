@@ -79,7 +79,7 @@ class DbLibPDOEmulatedPreparedStatement extends EmulatedPreparedStatement implem
         $this->stmt = $this->connection->prepare($prepared, array_merge(
             $this->driverOptions,
             array(
-                Connection::ATTR_STATEMENT_ORIGINAL => true
+                self::ATTR_STATEMENT_ORIGINAL => true
             )
         ));
 

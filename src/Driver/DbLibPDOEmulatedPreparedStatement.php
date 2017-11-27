@@ -46,6 +46,11 @@ class DbLibPDOEmulatedPreparedStatement extends EmulatedPreparedStatement implem
     private $fetchMode = null;
 
     /**
+     * @var string
+     */
+    protected $stmt = null;
+
+    /**
      * @const string
      */
     const ATTR_STATEMENT_ORIGINAL = 'ATTR_STATEMENT_ORIGINAL';

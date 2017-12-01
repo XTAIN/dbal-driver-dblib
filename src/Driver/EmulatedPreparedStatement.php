@@ -94,6 +94,10 @@ abstract class EmulatedPreparedStatement implements IteratorAggregate, Statement
      */
     public static function fixType($value, $type = \PDO::PARAM_STR)
     {
+        if ($value === null) {
+            return null;
+        }
+
         switch ($type) {
             case \PDO::PARAM_NULL:
                 return null;

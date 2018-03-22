@@ -149,17 +149,17 @@ class DbLibPDOEmulatedPreparedStatement extends EmulatedPreparedStatement implem
     /**
      * @inheritDoc
      */
-    public function fetch($fetchMode = null)
+    public function fetch($fetchMode = null, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset = 0)
     {
-        return $this->stmt->fetch($fetchMode);
+        return $this->stmt->fetch($fetchMode, $cursorOrientation, $cursorOffset);
     }
 
     /**
      * @inheritDoc
      */
-    public function fetchAll($fetchMode = null)
+    public function fetchAll($fetchMode = null, $fetchArgument = null, $ctorArgs = null)
     {
-        return $this->stmt->fetchAll($fetchMode);
+        return $this->stmt->fetchAll($fetchMode, $fetchArgument, $ctorArgs);
     }
 
     /**

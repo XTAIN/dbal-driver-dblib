@@ -64,10 +64,10 @@ class DbLibPDOStatement extends PDOStatement
     /**
      * {@inheritdoc}
      */
-    public function fetch($fetchMode = null, $cursorOrientation = null, $cursorOffset = null)
+    public function fetch($fetchMode = null, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset = 0)
     {
         if (isset($this->resultCache)) {
-            if ($fetchMode != \PDO::FETCH_ASSOC && $cursorOrientation !== null || $cursorOffset !== null) {
+            if ($fetchMode != \PDO::FETCH_ASSOC && $cursorOrientation !== \PDO::FETCH_ORI_NEXT || $cursorOffset !== 0) {
                 throw new \RuntimeException('result caching is only implemented for PDO::FETCH_ASSOC');
             }
 

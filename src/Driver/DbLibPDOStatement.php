@@ -128,10 +128,15 @@ class DbLibPDOStatement extends PDOStatement
         self::$lastActive = $this;
 
         // forward to the result set which is not empty
-        while ($this->columnCount() == 0) {
-            if (!$this->nextRowset()) {
-                break;
+        try {
+            while ($this->columnCount() == 0) {
+                $this->fetchAll(\PDO::FETCH_NUM);
+                if (!$this->nextRowset()) {
+                    break;
+                }
             }
+        } catch (\Exception $e) {
+            // continue
         }
 
         return $result;

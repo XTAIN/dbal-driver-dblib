@@ -130,7 +130,7 @@ class DbLibPDOStatement extends PDOStatement
         // forward to the result set which is not empty
         try {
             while ($this->columnCount() == 0) {
-                $this->fetchAll(\PDO::FETCH_NUM);
+                parent::fetchAll(\PDO::FETCH_NUM);
                 if (!$this->nextRowset()) {
                     break;
                 }

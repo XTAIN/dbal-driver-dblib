@@ -1,6 +1,7 @@
 {
     "name": "xtain/dbal-driver-dblib",
-    "type": "project",
+    "type": "library",
+    "license": "MIT",
     "description": "Doctrine DBAL driver for ASE",
     "autoload": {
         "classmap": [ "src/" ]
